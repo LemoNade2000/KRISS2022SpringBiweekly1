@@ -44,17 +44,18 @@ pairs = []
 for i in range(len(ticker_list)):
     print(i)
     for j in range(i, len(ticker_list)):
-        if i == j:
-            cointMatrix[ticker_list[i]][ticker_list[j]] = True
-        else:
-            cointMatrix[ticker_list[i]][ticker_list[j]] = coint_test(ticker_list[i], ticker_list[j])
-            cointMatrix[ticker_list[j]][ticker_list[i]] = cointMatrix[ticker_list[i]][ticker_list[j]]
-            if cointMatrix[ticker_list[i]][ticker_list[j]] == True:
-                pairs.append((ticker_list[i], ticker_list[j]))
-
+        try:
+            if i == j:
+                cointMatrix[ticker_list[i]][ticker_list[j]] = True
+            else:
+                cointMatrix[ticker_list[i]][ticker_list[j]] = coint_test(ticker_list[i], ticker_list[j])
+                cointMatrix[ticker_list[j]][ticker_list[i]] = cointMatrix[ticker_list[i]][ticker_list[j]]
+                if cointMatrix[ticker_list[i]][ticker_list[j]] == True:
+                    pairs.append((ticker_list[i], ticker_list[j]))
+        except:
+            continue
 p = pd.DataFrame(pairs)
 p.to_csv("Pairs.csv")
-
 print(cointMatrix)
 fig, axis = plt.subplots()
 sns.heatmap(cointMatrix.astype(float), annot = False, ax = axis, cmap = "Blues")

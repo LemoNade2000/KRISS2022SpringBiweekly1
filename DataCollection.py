@@ -19,7 +19,7 @@ print(ticker_list)
 def get_data(ticker_list):
     for ticker in ticker_list:
         t = yf.Ticker(ticker)
-        df = t.history(ticker_list, start="2022-01-01", end="2022-12-31", interval="1d")
+        df = t.history(ticker_list, start="2020-01-01", end="2021-12-31", interval="1d")
         Close = df['Close']
         np.log(Close).to_csv("{}.csv".format(ticker))
         #and so on for each ticker --> csv file
